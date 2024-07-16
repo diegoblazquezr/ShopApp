@@ -1,7 +1,7 @@
 CREATE TABLE "users"(
     "user_id" SERIAL NOT NULL PRIMARY KEY,
     "name" VARCHAR(255) NOT NULL,
-    "email" VARCHAR(255) NOT NULL,
+    "email" VARCHAR(255) NOT NULL UNIQUE,
     "password" VARCHAR(255) NOT NULL,
     "phone" INTEGER NOT NULL,
     "address" VARCHAR(255) NOT NULL,
@@ -52,10 +52,10 @@ ALTER TABLE "product_images" ADD FOREIGN KEY ("product_id") REFERENCES "products
 
 INSERT INTO "users" (name, email, password, phone, address, role, logged)
 VALUES
-('Admin', 'admin@gmail.com', '123456', 123456789, 'Calle Desengaño 21', 'admin', false),
-('Diego', 'diego@gmail.com', '123456', 123456789, 'Calle Desengaño 21', 'user', false),
-('Alex', 'alex@gmail.com', '123456', 123456789, 'Calle Desengaño 21', 'user', false),
-('Guille', 'guille@gmail.com', '123456', 123456789, 'Calle Desengaño 21', 'user', false);
+('Admin', 'admin@mail.com', '123456', 123456789, 'Calle Desengaño 21', 'admin', false),
+('Diego', 'diego@mail.com', '123456', 123456789, 'Calle Desengaño 21', 'user', false),
+('Alex', 'alex@mail.com', '123456', 123456789, 'Calle Desengaño 21', 'user', false),
+('Guille', 'guille@mail.com', '123456', 123456789, 'Calle Desengaño 21', 'user', false);
 
 INSERT INTO "categories" ("name", "image_url") 
 VALUES
