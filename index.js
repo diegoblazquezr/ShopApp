@@ -22,9 +22,11 @@ app.use(express.json()); // Habilito recepción de JSON en servidor
 
 // Routes
 const usersRoutes = require("./routes/users.routes");
+const productsRoutes = require("./routes/products.routes");
 
 // API Routes
 app.use('/api/user', usersRoutes);
+app.use('/api/product', productsRoutes);
 
 const server = app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
