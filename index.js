@@ -1,6 +1,7 @@
 const express = require("express");
 // const swaggerUi = require('swagger-ui-express');
 // const swaggerDocument = require('./swagger.json');
+const cors = require('cors');
 require('dotenv').config();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
@@ -19,6 +20,7 @@ app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(express.static('public')); // Serve static files
 app.use(express.json()); // Habilito recepción de JSON en servidor
+app.use(cors());
 
 // Routes
 const usersRoutes = require("./routes/users.routes");
@@ -27,6 +29,10 @@ const productsRoutes = require("./routes/products.routes");
 // API Routes
 app.use('/api/user', usersRoutes);
 app.use('/api/product', productsRoutes);
+
+app.get('*', (req,res) =>{
+    res.sendFile(path.join(__dirname+'/client/build/index.html'));
+});
 
 const server = app.listen(port, () => {
     console.log(`Example app listening on http://localhost:${port}`);
