@@ -17,6 +17,18 @@ OR description ILIKE '%classic%'
 LIMIT 10
 OFFSET 0;
 
+-- READ BY FILTERS
+SELECT *
+FROM products
+ORDER BY 
+CASE
+    WHEN $1 = 'date_added' THEN date_added
+    WHEN $1 = 'name' THEN name
+    WHEN $1 = 'price' THEN price
+END DESC
+LIMIT = $3
+OFFSET = $4;
+
 -- READ BY DATE
 SELECT *
 FROM products

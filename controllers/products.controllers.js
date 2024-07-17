@@ -37,6 +37,9 @@ const createProductController = async (req, res) => {
 // }
 
 const readProductsController = async (req, res) => {
+    if (req.query.limit > 100) {
+        return res.status(400).json("Limit can not surpass 100");
+    }
     let products;
     try {
         if (req.query.productName || req.query.productName == "") {
@@ -58,7 +61,14 @@ const readProductsController = async (req, res) => {
             // if (!errors.isEmpty()) {
             //     return res.status(400).json({ errors: errors.array() });
             // }
-            products = await product.readProductsByFilter(req.query.filter, req.query.limit, req.query.offset);
+            products = await product.readProductsByFilter(req.query.filter, req.query.order, req.query.limit, req.query.offset);
+            res.status(200).json(products);
+        } else if (req.query.categoryName || req.query.categoryName == "") {
+            // const errors = validationResult(req);
+            // if (!errors.isEmpty()) {
+            //     return res.status(400).json({ errors: errors.array() });
+            // }
+            products = await product.readByProductsCategory(req.query.categoryName, req.query.limit, req.query.offset);
             res.status(200).json(products);
         }
     } catch (error) {
@@ -67,8 +77,9 @@ const readProductsController = async (req, res) => {
 }
 // Prueba Postman
 // GET ONE http://localhost:3000/api/product?productName=Test Product
-// GET BY SEARCH http://localhost:3000/api/product?search=hoodie
-// GET BY FILTER http://localhost:3000/api/product?filter=name-desc
+// GET BY SEARCH http://localhost:3000/api/product?search=hoodie&limit=10&offset=0
+// GET BY FILTER http://localhost:3000/api/product?filter=name&order=desc&limit=10&offset=0
+// GET BY CATEGORY http://localhost:3000/api/product?categoryName=Electronics&limit=10&offset=0
 
 const updateProductController = async (req, res) => {
     // const errors = validationResult(req);

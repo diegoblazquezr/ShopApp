@@ -31,7 +31,6 @@ const createProduct = async (product) => {
 
 // READ ONE
 const readProduct = async (productName) => {
-    // const { limit, offset } = pagination;
     let client, result;
     try {
         client = await pool.connect();
@@ -52,11 +51,10 @@ const readProduct = async (productName) => {
 
 // READ BY SEARCH
 const readProductsBySearch = async (search, limit, offset) => {
-    // const { limit, offset } = pagination;
     let client, result;
     try {
         client = await pool.connect();
-        const data = await client.query(queries.readByProductsSearch, [`%${search}%`, limit, offset]);
+        const data = await client.query(queries.readProductsBySearch, [`%${search}%`, limit, offset]);
         result = data.rows;
     } catch (err) {
         console.log(err);
@@ -72,29 +70,16 @@ const readProductsBySearch = async (search, limit, offset) => {
 //     .catch(error => console.log(error))
 
 // READ BY FILTER
-const readProductsByFilter = async (filter, limit, offset) => {
-    // const { limit, offset } = pagination;
+const readProductsByFilter = async (filter, order, limit, offset) => {
     let client, result;
     try {
         client = await pool.connect();
 
-        if (filter === 'date-asc') {
-            const data = await client.query(queries.readByProductsDateAddedAsc, [limit, offset]);
+        if (order === 'asc') {
+            const data = await client.query(queries.readProductsByFilterAsc, [filter, limit, offset]);
             result = data.rows;
-        } else if (filter === 'date-desc') {
-            const data = await client.query(queries.readByProductsDateAddedDesc, [limit, offset]);
-            result = data.rows;
-        } else if (filter === 'name-asc') {
-            const data = await client.query(queries.readByProductsNameAsc, [limit, offset]);
-            result = data.rows;
-        } else if (filter === 'name-desc') {
-            const data = await client.query(queries.readByProductsNameDesc, [limit, offset]);
-            result = data.rows;
-        }else if (filter === 'price-asc') {
-            const data = await client.query(queries.readByProductsPriceAsc, [limit, offset]);
-            result = data.rows;
-        } else if (filter === 'price-desc') {
-            const data = await client.query(queries.readByProductsPriceDesc, [limit, offset]);
+        } else if (order === 'desc') {
+            const data = await client.query(queries.readProductsByFilterDesc, [filter, limit, offset]);
             result = data.rows;
         }
     } catch (err) {
@@ -106,7 +91,27 @@ const readProductsByFilter = async (filter, limit, offset) => {
     return result;
 }
 // Pruebas PostgreSQL
-// readProductsByFilter('name-desc', 10, 0)
+// readProductsByFilter('name', 'desc', 10, 0)
+//     .then(data => console.log(data))
+//     .catch(error => console.log(error))
+
+// READ BY CATEGORY
+const readByProductsCategory = async (categoryName, limit, offset) => {
+    let client, result;
+    try {
+        client = await pool.connect();
+        const data = await client.query(queries.readByProductsCategory, [categoryName, limit, offset]);
+        result = data.rows;
+    } catch (err) {
+        console.log(err);
+        throw err;
+    } finally {
+        client.release();
+    }
+    return result;
+}
+// Pruebas PostgreSQL
+// readByProductsCategory('Electronics', 10, 0)
 //     .then(data=>console.log(data))
 //     .catch(error => console.log(error))
 
@@ -165,6 +170,7 @@ const products = {
     readProduct,
     readProductsBySearch,
     readProductsByFilter,
+    readByProductsCategory,
     updateProduct,
     deleteProduct
 }
