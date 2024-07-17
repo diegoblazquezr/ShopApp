@@ -15,7 +15,7 @@ const createProductController = async (req, res) => {
         "categoryName" in newProduct
     ) {
         try {
-            const response = await product.createProduct({name: newProduct.name, price: newProduct.price, description: newProduct.description, stock: newProduct.stock, categoryName: newProduct.categoryName});
+            const response = await product.createProduct({ name: newProduct.name, price: newProduct.price, description: newProduct.description, stock: newProduct.stock, categoryName: newProduct.categoryName });
             res.status(201).json({
                 items_created: response
             });
@@ -49,26 +49,12 @@ const readProductsController = async (req, res) => {
             // }
             products = await product.readProduct(req.query.productName);
             res.status(200).json(products);
-        } else if (req.query.search || req.query.search == "") {
+        } else if ((req.query.search || req.query.search == "") && (req.query.categoryName || req.query.categoryName == "") && req.query.filter && req.query.order && req.query.limit && req.query.offset) {
             // const errors = validationResult(req);
             // if (!errors.isEmpty()) {
             //     return res.status(400).json({ errors: errors.array() });
             // }
-            products = await product.readProductsBySearch(req.query.search, req.query.limit, req.query.offset);
-            res.status(200).json(products);
-        } else if (req.query.filter || req.query.filter == "") {
-            // const errors = validationResult(req);
-            // if (!errors.isEmpty()) {
-            //     return res.status(400).json({ errors: errors.array() });
-            // }
-            products = await product.readProductsByFilter(req.query.filter, req.query.order, req.query.limit, req.query.offset);
-            res.status(200).json(products);
-        } else if (req.query.categoryName || req.query.categoryName == "") {
-            // const errors = validationResult(req);
-            // if (!errors.isEmpty()) {
-            //     return res.status(400).json({ errors: errors.array() });
-            // }
-            products = await product.readByProductsCategory(req.query.categoryName, req.query.limit, req.query.offset);
+            products = await product.readProductsByFilter(req.query.search, req.query.categoryName, req.query.filter, req.query.order, req.query.limit, req.query.offset);
             res.status(200).json(products);
         }
     } catch (error) {
@@ -77,9 +63,7 @@ const readProductsController = async (req, res) => {
 }
 // Prueba Postman
 // GET ONE http://localhost:3000/api/product?productName=Test Product
-// GET BY SEARCH http://localhost:3000/api/product?search=hoodie&limit=10&offset=0
-// GET BY FILTER http://localhost:3000/api/product?filter=name&order=desc&limit=10&offset=0
-// GET BY CATEGORY http://localhost:3000/api/product?categoryName=Electronics&limit=10&offset=0
+// GET BY FILTER http://localhost:3000/api/product?search=laptop&categoryName=Electronics&filter=price&order=asc&limit=10&offset=0
 
 const updateProductController = async (req, res) => {
     // const errors = validationResult(req);
@@ -89,10 +73,10 @@ const updateProductController = async (req, res) => {
     const modifiedProduct = req.body;
     if (
         ("name" in modifiedProduct ||
-        "price" in modifiedProduct ||
-        "description" in modifiedProduct ||
-        "stock" in modifiedProduct ||
-        "categoryName" in modifiedProduct) &&
+            "price" in modifiedProduct ||
+            "description" in modifiedProduct ||
+            "stock" in modifiedProduct ||
+            "categoryName" in modifiedProduct) &&
         "actualName" in modifiedProduct
     ) {
         try {

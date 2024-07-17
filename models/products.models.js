@@ -49,37 +49,17 @@ const readProduct = async (productName) => {
 //     .then(data=>console.log(data))
 //     .catch(error => console.log(error))
 
-// READ BY SEARCH
-const readProductsBySearch = async (search, limit, offset) => {
-    let client, result;
-    try {
-        client = await pool.connect();
-        const data = await client.query(queries.readProductsBySearch, [`%${search}%`, limit, offset]);
-        result = data.rows;
-    } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-    return result;
-}
-// Pruebas PostgreSQL
-// readProductsBySearch('hood', 10, 0)
-//     .then(data=>console.log(data))
-//     .catch(error => console.log(error))
-
 // READ BY FILTER
-const readProductsByFilter = async (filter, order, limit, offset) => {
+const readProductsByFilter = async (search, categoryName, filter, order, limit, offset) => {
     let client, result;
     try {
         client = await pool.connect();
 
         if (order === 'asc') {
-            const data = await client.query(queries.readProductsByFilterAsc, [filter, limit, offset]);
+            const data = await client.query(queries.readProductsByFilterAsc, [`%${search}%`, categoryName, filter, limit, offset]);
             result = data.rows;
         } else if (order === 'desc') {
-            const data = await client.query(queries.readProductsByFilterDesc, [filter, limit, offset]);
+            const data = await client.query(queries.readProductsByFilterDesc, [`%${search}%`, categoryName, filter, limit, offset]);
             result = data.rows;
         }
     } catch (err) {
@@ -91,28 +71,8 @@ const readProductsByFilter = async (filter, order, limit, offset) => {
     return result;
 }
 // Pruebas PostgreSQL
-// readProductsByFilter('name', 'desc', 10, 0)
+// readProductsByFilter('', 'Electronics', 'price', 'asc', 3, 0)
 //     .then(data => console.log(data))
-//     .catch(error => console.log(error))
-
-// READ BY CATEGORY
-const readByProductsCategory = async (categoryName, limit, offset) => {
-    let client, result;
-    try {
-        client = await pool.connect();
-        const data = await client.query(queries.readByProductsCategory, [categoryName, limit, offset]);
-        result = data.rows;
-    } catch (err) {
-        console.log(err);
-        throw err;
-    } finally {
-        client.release();
-    }
-    return result;
-}
-// Pruebas PostgreSQL
-// readByProductsCategory('Electronics', 10, 0)
-//     .then(data=>console.log(data))
 //     .catch(error => console.log(error))
 
 // UPDATE
@@ -131,7 +91,6 @@ const updateProduct = async (product) => {
     }
     return result;
 }
-
 // Pruebas PostgreSQL
 // const updatedProduct = {
 //     name : "Test Product 2",
@@ -168,9 +127,7 @@ const deleteProduct = async (productName) => {
 const products = {
     createProduct,
     readProduct,
-    readProductsBySearch,
     readProductsByFilter,
-    readByProductsCategory,
     updateProduct,
     deleteProduct
 }
