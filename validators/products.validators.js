@@ -51,7 +51,7 @@ const validateReadProducts = [
         .isString().withMessage("Category name should be a string"),
     query("filter")
         .optional()
-        .isIn(['date_added', 'name', 'price']).withMessage("Invalid filter value"),
+        .isIn(['dateadded', 'name', 'price']).withMessage("Invalid filter value"),
     query("order")
         .optional()
         .isIn(['asc', 'desc']).withMessage("Order must be 'asc' or 'desc'"),
@@ -65,10 +65,10 @@ const validateReadProducts = [
         .custom((value, { req }) => {
             if (req.query.productName) {
                 // If productName is provided, other filter params should not be present
-                if (req.query.search || req.query.categoryName || req.query.filter || req.query.order || req.query.limit || req.query.offset) {
+                if (req.query.search !== undefined || req.query.categoryName !== undefined || req.query.filter || req.query.order || req.query.limit || req.query.offset) {
                     throw new Error("When querying by productName, other filter parameters should not be present");
                 }
-            } else if (req.query.search || req.query.categoryName) {
+            } else if (req.query.search !== undefined || req.query.categoryName !== undefined) {
                 // If using filter search, all filter params should be present
                 if (!req.query.filter || !req.query.order || !req.query.limit || !req.query.offset) {
                     throw new Error("When using filter search, all filter parameters (filter, order, limit, offset) are required");
