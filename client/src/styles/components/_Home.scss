@@ -1,0 +1,30 @@
+#sectionCategories {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    text-align: center;
+    justify-content: center;
+}
+
+#sectionCategories img{
+    width: 100%;
+    max-width: 200px;
+}
+
+.linkCategory {
+    text-decoration: none;
+    color: black;
+}
+
+.articleCateogories {
+    border: 1px solid white;
+    padding: 5px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.articleCateogories:hover {
+    border: 1px solid gray;
+    cursor: pointer;
+    text-decoration: underline;
+}

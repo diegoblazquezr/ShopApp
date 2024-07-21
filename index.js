@@ -25,10 +25,12 @@ app.use(cors());
 // Routes
 const usersRoutes = require("./routes/users.routes");
 const productsRoutes = require("./routes/products.routes");
+const categoriesRoutes = require("./routes/categories.routes");
 
 // API Routes
 app.use('/api/user', usersRoutes);
 app.use('/api/product', productsRoutes);
+app.use('/api/categories', categoriesRoutes);
 
 app.get('*', (req,res) =>{
     res.sendFile(path.join(__dirname+'/client/build/index.html'));
