@@ -1,11 +1,11 @@
 const product = require('../models/products.models');
-// const { validationResult } = require("express-validator");
+const { validationResult } = require("express-validator");
 
 const createProductController = async (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //     return res.status(400).json({ errors: errors.array() });
-    // }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const newProduct = req.body;
     if (
         "name" in newProduct &&
@@ -43,17 +43,17 @@ const readProductsController = async (req, res) => {
     let products;
     try {
         if (req.query.productName || req.query.productName == "") {
-            // const errors = validationResult(req);
-            // if (!errors.isEmpty()) {
-            //     return res.status(400).json({ errors: errors.array() });
-            // }
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
             products = await product.readProduct(req.query.productName);
             res.status(200).json(products);
         } else if ((req.query.search || req.query.search == "") && (req.query.categoryName || req.query.categoryName == "") && req.query.filter && req.query.order && req.query.limit && req.query.offset) {
-            // const errors = validationResult(req);
-            // if (!errors.isEmpty()) {
-            //     return res.status(400).json({ errors: errors.array() });
-            // }
+            const errors = validationResult(req);
+            if (!errors.isEmpty()) {
+                return res.status(400).json({ errors: errors.array() });
+            }
             products = await product.readProductsByFilter(req.query.search, req.query.categoryName, req.query.filter, req.query.order, req.query.limit, req.query.offset);
             res.status(200).json(products);
         }
@@ -66,10 +66,10 @@ const readProductsController = async (req, res) => {
 // GET BY FILTER http://localhost:3000/api/product?search=laptop&categoryName=Electronics&filter=price&order=asc&limit=10&offset=0
 
 const updateProductController = async (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //     return res.status(400).json({ errors: errors.array() });
-    // }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     const modifiedProduct = req.body;
     if (
         ("name" in modifiedProduct ||
@@ -103,10 +103,10 @@ const updateProductController = async (req, res) => {
 // }
 
 const deleteProductController = async (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //     return res.status(400).json({ errors: errors.array() });
-    // }
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
     let products;
     try {
         products = await product.deleteProduct(req.query.productName);
