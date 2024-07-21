@@ -1,0 +1,271 @@
+{
+    "openapi": "3.0.1",
+    "info": {
+      "title": "Shop App",
+      "description": "API documentation for Shop App",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3000",
+        "description": "Local server"
+      }
+    ],
+    "paths": {
+      "/api/user": {
+        "post": {
+          "summary": "Create a new user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "email": { "type": "string" },
+                    "password": { "type": "string" },
+                    "phone": { "type": "integer" },
+                    "address": { "type": "string" }
+                  },
+                  "example": {
+                    "name": "Test",
+                    "email": "test@mail.com",
+                    "password": "123456",
+                    "phone": 987654321,
+                    "address": "Calle Desengaño 21"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User created"
+            }
+          }
+        },
+        "get": {
+          "summary": "Get all users",
+          "responses": {
+            "200": {
+              "description": "A list of users"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a user",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "email": { "type": "string" },
+                    "password": { "type": "string" },
+                    "phone": { "type": "integer" },
+                    "address": { "type": "string" },
+                    "role": { "type": "string" },
+                    "logged": { "type": "boolean" },
+                    "user_id": { "type": "integer" }
+                  },
+                  "example": {
+                    "name": "Test2",
+                    "email": "test2@mail.com",
+                    "password": "654321",
+                    "phone": 987654321,
+                    "address": "Calle Desengaño 12",
+                    "role": "admin",
+                    "logged": true,
+                    "user_id": 5
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "User updated"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a user",
+          "parameters": [
+            {
+              "name": "user_id",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "integer"
+              },
+              "example": 5
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "User deleted"
+            }
+          }
+        }
+      },
+      "/api/product": {
+        "post": {
+          "summary": "Create a new product",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "price": { "type": "number" },
+                    "description": { "type": "string" },
+                    "stock": { "type": "integer" },
+                    "categoryName": { "type": "string" }
+                  },
+                  "example": {
+                    "name": "Test Product",
+                    "price": 44.44,
+                    "description": "Description of Test Product",
+                    "stock": 44,
+                    "categoryName": "Miscellaneous"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Product created"
+            }
+          }
+        },
+        "get": {
+          "summary": "Get all products",
+          "parameters": [
+            {
+              "name": "search",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              },
+              "example": "laptop"
+            },
+            {
+              "name": "categoryName",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              },
+              "example": "Electronics"
+            },
+            {
+              "name": "filter",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              },
+              "example": "price"
+            },
+            {
+              "name": "order",
+              "in": "query",
+              "schema": {
+                "type": "string"
+              },
+              "example": "asc"
+            },
+            {
+              "name": "limit",
+              "in": "query",
+              "schema": {
+                "type": "integer"
+              },
+              "example": 10
+            },
+            {
+              "name": "offset",
+              "in": "query",
+              "schema": {
+                "type": "integer"
+              },
+              "example": 0
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A list of products"
+            }
+          }
+        },
+        "put": {
+          "summary": "Update a product",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "name": { "type": "string" },
+                    "price": { "type": "number" },
+                    "description": { "type": "string" },
+                    "stock": { "type": "integer" },
+                    "categoryName": { "type": "string" },
+                    "actualName": { "type": "string" }
+                  },
+                  "example": {
+                    "name": "Test Product 2",
+                    "price": 444.44,
+                    "description": "Description of Test Product 2",
+                    "stock": 444,
+                    "categoryName": "Electronics",
+                    "actualName": "Test Product"
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "200": {
+              "description": "Product updated"
+            }
+          }
+        },
+        "delete": {
+          "summary": "Delete a product",
+          "parameters": [
+            {
+              "name": "productName",
+              "in": "query",
+              "required": true,
+              "schema": {
+                "type": "string"
+              },
+              "example": "Test Product 2"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Product deleted"
+            }
+          }
+        }
+      },
+      "/api/categories": {
+        "get": {
+          "summary": "Get all categories",
+          "responses": {
+            "200": {
+              "description": "A list of categories"
+            }
+          }
+        }
+      }
+    }
+  }
+  
