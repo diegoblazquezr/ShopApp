@@ -1,0 +1,41 @@
+.search-form {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 20px 0;
+    font-size: 0.9em;
+}
+
+.search-form input[type=text], select {
+    padding: 5px;
+    border-radius: 3px;
+}
+
+.search-form button {
+    padding: 5px;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid lightgray;
+    border-radius: 3px;
+
+}
+
+.search-form input[type=submit], button:hover {
+    cursor: pointer;
+    border: 1px solid gray;
+}
+
+#inputProductsSearch {
+    width: 100%;
+    border: 1px solid gray;
+    padding: 10px;
+    text-align: center;
+}
+
+#sectionProductList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}

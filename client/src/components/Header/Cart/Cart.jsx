@@ -8,7 +8,6 @@ const Cart = () => {
     const items = useSelector(state => state.cartItems);
     useSelector(state => state.numberItems);
 
-
     let TotalCart = 0;
     items.forEach(item => {
         TotalCart += item.quantity * item.price;
@@ -32,24 +31,24 @@ const Cart = () => {
                         <tr key={i} i={i}>
                             <td><button style={{ cursor: "pointer" }} onClick={() => {
                                 dispatch(deleteCart(i))
-                            }}>X</button></td>
+                            }}><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg></button></td>
                             <td>{item.title}</td>
                             <td><img src={item.image} alt={item.title} style={{ width: '100px', height: '80px' }} /></td>
                             <td>{item.price} $</td>
                             <td>
                                 <button style={{ margin: '2px', cursor: "pointer" }} onClick={() => {
                                     dispatch(decreaseQuantity(i))
-                                }}>-</button>
+                                }}><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M200-440v-80h560v80H200Z"/></svg></button>
                                 <span>{item.quantity}</span>
                                 <button style={{ margin: '2px', cursor: "pointer" }} onClick={() => {
                                     dispatch(increaseQuantity(i))
-                                }}>+</button>
+                                }}><svg xmlns="http://www.w3.org/2000/svg" height="18px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M440-440H200v-80h240v-240h80v240h240v80H520v240h-80v-240Z"/></svg></button>
                             </td>
-                            <td><b>{parseInt(item.price * item.quantity).toFixed(2)} $</b></td>
+                            <td><b>{Number(item.price * item.quantity).toFixed(2)} $</b></td>
                         </tr>
                     )
                 })}
-                <tr>
+                <tr className="trTotal">
                     <td colSpan="5">Total: </td>
                     <td><b>{Number(TotalCart).toFixed(2)} $</b></td>
                 </tr>

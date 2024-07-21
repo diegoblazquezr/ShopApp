@@ -112,7 +112,7 @@ const ProductList = ({ products, setProducts }) => {
 
   return (
     <>
-      {_products.length !== 0 ? (
+      {/* {_products.length !== 0 ? (
         <div id='productCardContainer'>
           <Link id='cartFixed' to="/cart" title='Shopping cart'>
             <img src="https://i.pinimg.com/originals/15/bb/55/15bb559cdd28f56d7c17b00498b4a946.png" alt="shopping cart" />
@@ -121,7 +121,9 @@ const ProductList = ({ products, setProducts }) => {
         </div>
       ) : (
         <span className="loader"></span>
-      )}
+      )} */}
+
+      <h2>/Products</h2>
 
       <form onSubmit={handleSubmit} className="search-form">
         <input
@@ -152,7 +154,7 @@ const ProductList = ({ products, setProducts }) => {
         </select>
 
         <button type="submit">Apply Filters</button>
-        <button type="button" onClick={resetFilters}>Reset</button>
+        <button type="button" onClick={resetFilters}>Reset Filters</button>
       </form>
       
       <section id="sectionProductList">

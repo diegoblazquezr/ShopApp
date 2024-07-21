@@ -1,0 +1,43 @@
+.table {
+    margin: 20px 0;
+    // border: 1px solid black;
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+}
+
+.table th {
+    border-bottom: 1px solid gray;
+    padding: 5px;
+}
+
+.table td {
+    border-bottom: 1px solid lightgray;
+}
+
+.table img {
+    border: 1px solid lightgray;
+}
+
+.table button {
+    padding: 1px;
+    background-color: rgb(250, 250, 250);
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    margin: 10px;
+}
+
+.table button:hover {
+    cursor: pointer;
+    border: 1px solid gray;
+}
+
+
+.trTotal td{
+    padding: 10px;
+    font-size: 1.2em;
+
+    &:first-child {
+        text-align: end;
+    }
+}
