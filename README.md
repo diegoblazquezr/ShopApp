@@ -1,5 +1,7 @@
 # ShopApp
 
+![2024-07-22 01_32_44-Shop App - Brave](https://github.com/user-attachments/assets/a0d6c2d9-63fb-4164-973d-f3c5a75c139a)
+
 ## Tabla de Contenidos
 
 - [Introducción](#introducción)
@@ -28,6 +30,14 @@ ShopApp es una aplicación de comercio electrónico integral diseñada para opti
 - Funcionalidad de carrito de compras
 - Diseño responsive para móviles y escritorio
 - Menú hamburguesa
+
+## Vista Móvil / Escritorio
+### Móvil
+![2024-07-22 01_43_08-Shop App - Brave](https://github.com/user-attachments/assets/da8d5702-981b-4604-8503-5d3cee152eb4)
+
+### Escritorio
+![2024-07-22 01_42_21-Shop App - Brave](https://github.com/user-attachments/assets/a0687271-2e0e-404d-ab59-0de078ce67fa)
+
 
 ## Instalación
 
